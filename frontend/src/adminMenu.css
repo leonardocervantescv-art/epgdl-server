@@ -1,0 +1,22 @@
+/* PANELES DE ADMINISTRACION /LOGIN/ADMIN */
+
+.admin-menu {
+  background-color: #f8f9fa;
+  border-radius: 10px;
+}
+
+.admin-card {
+  border: 1px solid #dee2e6;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 12px;
+}
+
+.admin-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.admin-card .card-title {
+  font-size: 1.1rem;
+  font-weight: 500;
+}

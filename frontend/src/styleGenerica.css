@@ -1,0 +1,61 @@
+/* Contenedor del banner */
+.slider-banner {
+  margin-top: 20px;
+  padding: 0;
+}
+
+/* Estilos generales para la sección de contenido y aside */
+.row {
+  margin: 0 auto;
+  padding: 20px;
+  max-width: 1200px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Aside: eventos + horarios */
+aside.container {
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Contenido principal */
+.content {
+  background-color: #ffffff;
+  padding: 30px 20px;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+  font-size: 1rem;
+  color: #1a1b38;
+}
+
+.content h1, .content h2, .content h3 {
+  font-weight: bold;
+  color: #1A1B38;
+  margin-top: 1.5rem;
+}
+
+.content p {
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+/* Responsive: móvil y tablet */
+@media (max-width: 768px) {
+  .row {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  aside.container,
+  .content {
+    width: 100% !important;
+    margin-bottom: 20px;
+  }
+
+  .content {
+    padding: 20px 10px;
+  }
+}

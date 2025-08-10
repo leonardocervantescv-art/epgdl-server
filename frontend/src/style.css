@@ -1,0 +1,783 @@
+/* estilos del header*/
+
+@import url('https://fonts.cdnfonts.com/css/montserrat');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
+
+@font-face {
+  font-family: 'Montserrat-BoldItalic';
+  src: url('../fonts/Montserrat-BoldItalic.ttf') format('opentype');
+  font-weight: bold;
+  font-style: italic;
+}
+
+/* Estilos del header */
+
+/* Menú principal */
+.menu-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #041b2d;
+  padding: 10px 20px;
+  color: white;
+}
+
+/* Logos (Izquierda) */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-left: 300px;
+}
+
+.logo-container img {
+  height: 100px;
+}
+
+/* Redes sociales (Derecha) */
+.social-icons {
+  display: flex;
+  gap: 15px;
+  margin-right: 100px;
+}
+
+.social-icons a {
+  color: white;
+  font-size: 25px;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.social-icons a:hover {
+  color: #00aaff;
+}
+
+/* Íconos de redes sociales en el header */
+.redes-header a {
+  color: white;
+  font-size: 1.5rem;
+  transition: transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: 50%;
+}
+
+/* Efecto hover moderno */
+.redes-header a:hover {
+  transform: scale(1.2) rotate(5deg);
+  color: #00aaff;
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 170, 255, 0.3);
+}
+
+
+
+
+
+
+
+
+/* Íconos de Font Awesome */
+
+
+
+
+/* HEADER MODERNO */
+
+/* Navbar general */
+.header-navbar {
+  background-color: #041b2d !important;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Estilo para cada dropdown principal (botón del menú) */
+.navbar .nav-link,
+.navbar .dropdown-toggle {
+  color: #ffffff !important; /* Texto azul */
+  font-weight: 600;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.navbar .nav-link:hover,
+.navbar .dropdown-toggle:hover {
+  color: #0056b3 !important; /* Azul más oscuro al hacer hover */
+}
+
+/* Estilo de fondo y animación para el dropdown */
+.navbar .dropdown-menu {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  visibility: hidden;
+  pointer-events: none;
+  background-color: #ffffffbc;
+  border: none;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 0;
+  z-index: 1000;
+}
+
+/* Al estar activo el dropdown */
+.navbar .dropdown.show .dropdown-menu {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Ítems del dropdown */
+.navbar .dropdown-menu .dropdown-item {
+  color: #042549 !important;
+  font-weight: 500;
+  padding: 0.5rem 1.5rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.navbar .dropdown-menu .dropdown-item:hover {
+  background-color: #f0f8ff;
+  color: #003366 !important;
+}
+
+/* Redes sociales */
+.redes-header a {
+  color: white;
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+.redes-header a:hover {
+  color: #00aaff;
+}
+
+/* RESPONSIVE: menú móvil */
+@media (max-width: 991.98px) {
+  .navbar-collapse {
+    background-color: #041b2d;
+    padding: 1rem;
+  }
+
+  .navbar-nav .dropdown-menu {
+    position: static;
+    float: none;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto;
+    box-shadow: none;
+    background-color: #ffffff;
+    border-radius: 0;
+  }
+
+  .navbar-nav .dropdown-menu .dropdown-item {
+    padding-left: 2rem;
+    color: #007bff !important;
+  }
+}
+
+
+
+/* Tamaño general del logo */
+.logo-header {
+  height: 60px;
+  margin-right: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efecto al pasar el mouse */
+.logo-header:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 8px rgba(0, 170, 255, 0.2); /* Sombra azul suave */
+}
+
+@media (max-width: 576px) {
+  .logo-header:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+
+/* Responsividad para tablets */
+@media (max-width: 768px) {
+  .logo-header {
+    height: 50px;
+  }
+}
+
+/* Responsividad para móviles */
+@media (max-width: 576px) {
+  .logo-header {
+    height: 40px;
+  }
+}
+
+
+
+/* FINALIZAN ESTILOS DEL HEADER  */
+
+
+/* Estilos del menú */
+.menu {
+  display: flex;
+  align-items: center;
+  background-color: #041b2d;
+  color: white;
+  padding: 10px 0;
+}
+
+.menu > li {
+  position: relative;
+  list-style: none;
+  margin-right: 20px;
+}
+
+.menu > li > a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  display: block;
+  transition: background 0.3s;
+}
+
+.menu > li > a:hover {
+  background-color: #444;
+}
+
+#indexPrincipal {
+  padding-right: 500px;
+}
+
+.navbar-brand {
+  padding-left: 200px;
+}
+
+.social-icons {
+  padding-left: 80px;
+}
+
+/* Para pantallas más pequeñas (tablets y móviles) */
+@media (max-width: 768px) {
+  .navbar-brand img {
+    width: 250px;
+    height: 80px;
+  }
+}
+
+/* Para pantallas muy pequeñas (móviles) */
+@media (max-width: 576px) {
+  .navbar-brand img {
+    width: 150px;
+    height: 50px;
+  }
+}
+
+/* ... (todo el resto del CSS continúa igual sin cambios) ... */
+
+
+
+
+  /* Estilos del video */
+  .video-container {
+    width: 100%;
+    max-width: 100vw;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .video-container video {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+
+/* CSS de apartado campus monterrey*/
+/* RESPONSIVIDAD PARA LA SECCIÓN CAMPUS GUADALAJARA */
+.wrapper {
+  margin: 100px auto;
+  width: 90%;
+  padding: 0 15px;
+}
+
+.campus {
+  font-size: clamp(2rem, 5vw, 4rem);
+  color: #1A1B38;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+/* Textos */
+.text-box {
+  color: #1A1B38;
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+/* Estilo para imagenes dentro de .campus-inicio */
+.campus-inicio {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.campus-inicio .card {
+  border: none;
+  border-radius: 25px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-width: 100%;
+}
+
+.campus-inicio .card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border-radius: 25px;
+}
+
+/* Estética para imagen al lado del texto (pantallas grandes) */
+@media (min-width: 992px) {
+  #mty .row {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+
+  #mty .col-lg-6 {
+    flex: 0 0 48%;
+    max-width: 48%;
+  }
+}
+
+/* Responsividad para pantallas medianas y pequeñas */
+@media (max-width: 991px) {
+  #mty .row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .campus-inicio,
+  .text-box {
+    text-align: center;
+  }
+
+  .campus-inicio .card {
+    width: 90%;
+  }
+}
+
+
+
+/*  TERMINAN ESTILOS DE LA IMAGEN*/
+
+.text-box h3{
+    font-size: 30px;
+    align-content: center;
+    margin-top: 5vh;
+}
+
+.text-box p{
+    margin-top: 25px;
+    font-size: 18px;
+}
+
+.img-fr{
+    width: 100%;
+    height: 100%;
+    margin-top: -350px;   
+} 
+
+/* INICIA Estilos del título oferta académica*/
+.title {
+  font-weight: 700;
+  font-size: clamp(2rem, 6vw, 4rem); /* Se ajusta entre 2rem y 4rem según el ancho de pantalla */
+  color: #1a1b38;
+  text-align: center;
+  margin-top: 30px;
+}
+/* finaliza Estilos del título */
+
+/*Estilos de imagenes de apartado de comunidad, revista, congresos y occcs */
+
+.img-ccro{
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    padding: 25px;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.btnimg{
+    width: 225px;
+    height: 225px;
+    margin: 0 25px;
+}
+
+      /* Estilos para la galería */
+
+  .gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 80px;
+    margin-top: 50px;
+    width: 100%;
+    max-width: 1200px;
+  }
+  
+  .gallery .card {
+    background-color: transparent;
+    border: none;
+    text-align: center;
+    padding: 0%;
+    border-radius: 90px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    width: calc(50% - 10px);
+    max-width: 600px;
+  }
+  
+  .gallery .card img {
+    width: 100%;
+    height: auto;
+    border-radius: 80px;
+    box-shadow: 0 6px 12px rgba(238, 223, 223, 0.3);
+    object-fit: cover;
+  }
+  
+  .gallery .card-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a1b38;
+    margin-top: 20px;
+  }
+  
+  @media (max-width: 768px) {
+    .gallery {
+      flex-direction: column;
+      align-items: center;
+    }
+    .gallery .card {
+      width: 100%;
+      max-width: 90%;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .gallery .card {
+      width: calc(33.333% - 10px);
+    }
+  }
+  
+  /*finaliza estilos para galeria*/
+
+/*BOTÓN FLOTANTE*/
+
+ /* Estilos para el botón flotante general */
+ .floating-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #007bff; /* Azul por defecto */
+  color: white;
+  padding: 15px 20px;
+  border-radius: 10px; /* Bordes redondeados */
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  width: 50px; /* Tamaño inicial */
+  height: 50px;
+  transition: all 0.3s ease; /* Efecto suave */
+  overflow: hidden;
+  white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
+  z-index: 1000; /* Mantener el botón por encima del contenido */
+  animation: blink 1.5s infinite; /* Animación de parpadeo */
+}
+
+/* Iconos dentro del botón */
+.floating-btn i {
+  font-size: 24px; /* Tamaño del icono */
+}
+
+/* Texto oculto dentro del botón */
+.floating-btn span {
+  display: none; /* El texto no se muestra al inicio */
+  margin-left: 10px; /* Espacio entre el icono y el texto */
+}
+
+/* Efecto al pasar el mouse */
+.floating-btn:hover {
+  transform: scale(1.1); /* Aumenta el tamaño al pasar el ratón */
+  width: 180px; /* Expande el botón para mostrar el texto */
+}
+
+.floating-btn:hover span {
+  display: inline; /* Muestra el texto al pasar el ratón */
+}
+
+/* Botón flotante de WhatsApp */
+.whatsapp-btn {
+  bottom: 80px; /* Ajusta su posición para que esté encima del otro botón */
+  background-color: #25D366; /* Color verde de WhatsApp */
+}
+
+/* Animación de parpadeo */
+@keyframes blink {
+  0%, 100% {
+    opacity: 1; /* Visible */
+  }
+  50% {
+    opacity: 0.5; /* Semi-transparente */
+  }
+}
+/*FINALIZA DISEÑO BOTÓN FLOTANTE */
+
+
+/*INICIA diseño botones bajos (banners programas)*/
+
+
+/*FINALIZA botones (banners programas*/
+
+
+/*formulario informes */ 
+   .form-container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            font-family: 'Monserrat-Bold, sans serif'
+        }
+
+        .form-title {
+            background-color: #1A1B38;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 1.5rem;
+            border-radius: 5px 5px 0 0;
+            font-family: 'Montserrat-Bold', sans-serif;
+        }
+
+        .form-image {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+
+        .form-button {
+            background-color: E7E7E7;
+            color: white;
+            border: none;
+            font-family: 'Montserrat-Bold', sans-serif;
+        }
+
+        .form-button:hover {
+            background-color: #343a40;
+        }
+        label, input, textarea {
+          font-family: 'Montserrat-Bold', sans-serif;
+      }
+
+/* finaliza formulario solicita informes*/
+
+  /*Estilos de la imagen SIGUENOS */
+  /* Asegura que el contenedor de la imagen ocupe todo el ancho */
+  .full-width-image-container {
+    width: 100%;         /* Ocupa el 100% del ancho de la ventana */
+    margin: 0;           /* Elimina márgenes si es necesario */
+    padding: 0;
+    margin-top: 20px;
+  }
+  
+  /* Asegura que la imagen ocupe el 100% del contenedor */
+  .full-width-image {
+    width:100%;         /* Ocupa todo el ancho del contenedor */
+    height: auto;        /* Ajusta la altura proporcionalmente */
+    display: block;      /* Elimina espacios adicionales que algunos navegadores añaden */
+    object-fit: cover;   /* Ajusta la imagen para cubrir el área sin distorsionarse */
+    max-width: none;
+  
+  }             
+
+
+
+  /*ESTILOS DEL APARTADO CAMPUS*/
+
+/* Estilo del título CAMPUS */
+.campus-title {
+  font-size: clamp(2rem, 6vw, 4rem); /* Se ajusta entre 2rem y 4rem según el ancho de pantalla */
+  font-weight: bold;
+  color: #011627;
+  margin-bottom: 30px;
+}
+
+/* Contenedor principal */
+.campus-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Cada ítem del campus */
+.campus-item {
+  width: calc(20% - 20px); /* Distribuye 5 elementos en línea */
+  max-width: 200px;
+}
+
+/* Contenedor de la imagen */
+.image-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 10px; /* Opcional, para esquinas redondeadas */
+}
+
+/* Imágenes sin borde y ocupando todo el ancho */
+.campus-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+}
+
+/* Efecto hover: escala y desenfoque */
+.image-container:hover .campus-image {
+  transform: scale(1.05);
+  filter: brightness(80%);
+}
+
+/* Etiqueta con nombre */
+.campus-label {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(90, 90, 58, 0.8);
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 5px;
+  text-decoration: none; /* Quitar subrayado */
+  transition: background-color 0.3s ease-in-out;
+}
+
+/* Hover en la etiqueta */
+.image-container:hover .campus-label {
+  background-color: rgba(86, 88, 72, 0.9);
+  color: black;
+}
+
+/* RESPONSIVIDAD: En pantallas pequeñas se vuelven verticales */
+@media (max-width: 768px) {
+  .campus-title {
+      font-size: 3rem;
+  }
+
+  .campus-container {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .campus-item {
+      width: 90%;
+      max-width: 300px;
+  }
+}
+
+@media (max-width: 576px) {
+  .campus-title {
+      font-size: 2.5rem;
+  }
+
+  .campus-item {
+      width: 100%;
+  }
+
+  .campus-label {
+      font-size: 12px;
+      padding: 6px 10px;
+  }
+}
+/*FINALIZA ESTILOS DE APARTADO CAMPUS*/
+
+/*ESTILOS DEL PIE DE PÁGINA*/
+
+.pie-pagina{
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    background-color: #ffffff85;
+}
+
+.pie-pagina .grupo1{
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 50px;
+    padding: 45px 0px;
+}
+
+.pie-pagina .grupo1 .box figure{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pie-pagina .grupo1 .box figure img{
+    width: 80%;
+}
+
+.pie-pagina .grupo1 .box h2{
+    color: #1A1B38;
+    margin-bottom: 25px;
+    font-size: 20px;
+}
+
+.pie-pagina .grupo1 .box p{
+    color: #283480;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.pie-pagina .grupo2 small{
+    font-size: 15px;
+}
+
+.pie-pagina img{
+  width: 5%;
+}
+
+@media screen and (max-width:800px) {
+    .pie-pagina .grupo1{
+    width: 100%;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 50px;
+    padding: 45px 0px;
+    }
+}
+/*FINALIZA ESTILOS DEL PIE DE PÁGINA*/ 

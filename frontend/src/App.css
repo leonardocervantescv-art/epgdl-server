@@ -1,0 +1,28 @@
+.header-navbar {
+  background-color: #051f39; /* azul oscuro similar al de la imagen */
+  font-size: 14px;
+}
+
+.header-navbar .nav-link,
+.header-navbar .dropdown-toggle {
+  color: #ccc;
+}
+
+.header-navbar .nav-link:hover,
+.header-navbar .dropdown-toggle:hover {
+  color: #fff;
+}
+
+.header-navbar .dropdown-menu {
+  background-color: #051f39;
+  border: none;
+}
+
+.header-navbar .dropdown-item {
+  color: #ccc;
+}
+
+.header-navbar .dropdown-item:hover {
+  background-color: #0d2f4f;
+  color: white;
+}

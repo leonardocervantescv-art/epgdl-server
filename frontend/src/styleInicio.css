@@ -1,0 +1,112 @@
+.container-btnbajos {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 3rem; /* Más espacio entre botones */
+  margin: 3rem auto;
+  padding: 0 1rem;
+  max-width: 1200px;
+}
+
+/* Botón circular */
+.btn-circle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-circle:hover {
+  transform: scale(1.05);
+}
+
+/* Imagen circular */
+.btn-circle img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+  transition: box-shadow 0.3s ease;
+  margin-bottom: 12px;
+}
+
+
+
+/* Texto debajo del botón */
+.btn-circle p {
+  margin: 0;  
+  background-color: #1A1B38;
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 14px;
+  text-align: center;
+  max-width: 160px;
+  word-break: break-word;
+}
+
+/* Estilo base para banners circulares */
+.banner-circular {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #007bff; /* opcional: borde azul moderno */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* sombra suave */
+  transition: transform 0.3s ease;
+}
+
+.banner-circular:hover {
+  transform: scale(1.05);
+}
+
+.circle-img-wrapper {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.circle-img-wrapper-btn-bajos {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.circle-img-wrapper-campus {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+
+
+/* RESPONSIVE: móviles y tablets */
+@media (max-width: 768px) {
+  .btn-circle img {
+    width: 120px;
+    height: 120px;
+  }
+
+  .btn-circle p {
+    font-size: 13px;
+    padding: 6px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .btn-circle img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .btn-circle p {
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,78 @@
+/* ===== ESTILOS PARA PaginaGenerica.jsx ===== */
+
+.pagina-generica {
+  margin-top: 1rem;
+}
+
+/* Banner responsivo */
+.slider-banner {
+  width: 100%;
+  margin-bottom: 2rem;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.slider-banner img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  border-radius: 10px;
+}
+
+/* Layout de contenido general */
+.pagina-generica .row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* Aside responsivo */
+.pagina-generica aside {
+  flex: 0 0 25%;
+  max-width: 25%;
+}
+
+@media (max-width: 992px) {
+  .pagina-generica aside {
+    flex: 0 0 100%;
+    max-width: 100%;
+    order: 2;
+  }
+}
+
+/* Contenido principal */
+.pagina-generica .contenido-principal {
+  flex: 0 0 75%;
+  max-width: 75%;
+}
+
+@media (max-width: 992px) {
+  .pagina-generica .contenido-principal {
+    flex: 0 0 100%;
+    max-width: 100%;
+    order: 1;
+  }
+}
+
+/* Texto cargado desde la base de datos */
+.pagina-generica .contenido-principal div {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* Imágenes insertadas desde contenido */
+.pagina-generica .contenido-principal img {
+  max-width: 100%;
+  height: auto;
+  margin: 1rem 0;
+  border-radius: 8px;
+}
+
+/* Responsivo adicional */
+@media (max-width: 576px) {
+  .pagina-generica .contenido-principal div {
+    font-size: 0.95rem;
+  }
+}

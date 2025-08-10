@@ -1,0 +1,18 @@
+.menu-bar {
+  margin-bottom: 10px;
+}
+
+.menu-bar button {
+  margin-right: 5px;
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  background: #f8f8f8;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.menu-bar button.is-active {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+}
