@@ -150,3 +150,79 @@ exports.getContenidoByExtra = (req, res) => {
 };
 
 
+
+
+// ✅ Mover submenú a otra sección (sin inventar campos)
+exports.moverContenido = (req, res) => {
+  const { id } = req.params;
+  const { id_secciones } = req.body;
+
+  // Aseguramos número, y NO usamos !id_secciones para no rechazar 1.
+  const nuevaSeccionId = parseInt(id_secciones, 10);
+  if (Number.isNaN(nuevaSeccionId)) {
+    return res.status(400).json({ error: "id_secciones inválido" });
+  }
+
+  const sql = `UPDATE Contenido SET id_secciones = ? WHERE id_contenido = ?`;
+  db.query(sql, [nuevaSeccionId, id], (err, result) => {
+    if (err) {
+      console.error("Error al mover submenú:", err);
+      return res.status(500).json({ error: "Error al mover submenú" });
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Submenú no encontrado" });
+    }
+    return res.json({ success: true, message: "Submenú movido correctamente" });
+  });
+};
+
+// ✅ Habilitar / deshabilitar (usa el campo 'Activo' si ya existe)
+exports.toggleContenido = (req, res) => {
+  const { id } = req.params;
+  let { Activo } = req.body;
+
+  // Normalizamos a 0/1 sin asumir booleano
+  const val = parseInt(Activo, 10);
+  if (val !== 0 && val !== 1) {
+    return res.status(400).json({ error: "Valor de 'Activo' inválido (0 o 1)" });
+  }
+
+  const sql = `UPDATE Contenido SET Activo = ? WHERE id_contenido = ?`;
+  db.query(sql, [val, id], (err, result) => {
+    if (err) {
+      console.error("Error al actualizar 'Activo':", err);
+      return res.status(500).json({ error: "Error al actualizar estado" });
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Submenú no encontrado" });
+    }
+    return res.json({ success: true, message: "Estado actualizado correctamente" });
+  });
+};
+
+
+//HABILITAR Y DESHABILITAR SECCIONES
+// ... dentro de secciones.js
+
+exports.toggleSeccion = (req, res) => {
+  const { id } = req.params;
+  let { Activo } = req.body;
+
+  const val = parseInt(Activo, 10);
+  if (val !== 0 && val !== 1) {
+    return res.status(400).json({ error: "Valor de 'Activo' inválido (0 o 1)" });
+  }
+
+  const sql = `UPDATE Secciones SET Activo = ? WHERE id_secciones = ?`;
+  db.query(sql, [val, id], (err, result) => {
+    if (err) {
+      console.error("Error al actualizar 'Activo' de la sección:", err);
+      return res.status(500).json({ error: "Error al actualizar estado de la sección" });
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Sección no encontrada" });
+    }
+    return res.json({ success: true, message: "Estado de la sección actualizado correctamente" });
+  });
+};
+

@@ -13,15 +13,14 @@ const EventoForm = ({ evento, onSuccess, clasificaciones = [] }) => {
     Clasificacion: "",
   });
   const [nuevaClasificacion, setNuevaClasificacion] = useState("");
-  const [usandoNuevaClasificacion, setUsandoNuevaClasificacion] =
-    useState(false);
+  const [usandoNuevaClasificacion, setUsandoNuevaClasificacion] = useState(false);
+  const [usandoOtroPrograma, setUsandoOtroPrograma] = useState(false);
   const [programasAgrupados, setProgramasAgrupados] = useState({});
 
   useEffect(() => {
     axios
       .get(`${import.meta.env.VITE_REACT_APP_API_URL}/api/aside/eventos/programa`)
       .then((res) => {
-        // Aseguramos que res.data es un array antes de usar .reduce
         if (Array.isArray(res.data)) {
           const agrupado = res.data.reduce((acc, item) => {
             if (!acc[item.Titulo]) acc[item.Titulo] = [];
@@ -30,26 +29,48 @@ const EventoForm = ({ evento, onSuccess, clasificaciones = [] }) => {
           }, {});
           setProgramasAgrupados(agrupado);
         } else {
-          setProgramasAgrupados({}); // En caso de error, inicializamos como un objeto vacío
+          setProgramasAgrupados({});
         }
       })
       .catch((err) => {
         console.error("Error al cargar programas", err);
-        setProgramasAgrupados({}); // En caso de error, también inicializamos como objeto vacío
+        setProgramasAgrupados({});
       });
   }, []);
 
   useEffect(() => {
     if (evento) {
-      setForm(evento);
-      setUsandoNuevaClasificacion(false);
+      const fechaFormateada = evento.Fecha
+        ? new Date(evento.Fecha).toISOString().split("T")[0]
+        : "";
+
+      const programasExistentes = Object.values(programasAgrupados).flat();
+      const existeDescripcion = programasExistentes.includes(evento.Descripcion);
+
+      setUsandoOtroPrograma(!existeDescripcion);
+      setForm({
+        ...evento,
+        Fecha: fechaFormateada,
+      });
       setNuevaClasificacion("");
+      setUsandoNuevaClasificacion(false);
     }
-  }, [evento]);
+  }, [evento, programasAgrupados]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleDescripcionChange = (e) => {
+    const value = e.target.value;
+    if (value === "__otro__") {
+      setUsandoOtroPrograma(true);
+      setForm((prev) => ({ ...prev, Descripcion: "" }));
+    } else {
+      setUsandoOtroPrograma(false);
+      setForm((prev) => ({ ...prev, Descripcion: value }));
+    }
   };
 
   const handleClasificacionChange = (e) => {
@@ -66,8 +87,12 @@ const EventoForm = ({ evento, onSuccess, clasificaciones = [] }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const data = {
+
+    // Construimos el objeto de datos que se enviará,
+    // incluyendo el campo 'otro' de forma explícita
+    const dataToSend = {
       ...form,
+      otro: usandoOtroPrograma ? 1 : null,
       Clasificacion: usandoNuevaClasificacion
         ? nuevaClasificacion
         : form.Clasificacion,
@@ -78,7 +103,7 @@ const EventoForm = ({ evento, onSuccess, clasificaciones = [] }) => {
       ? `${import.meta.env.VITE_REACT_APP_API_URL}/api/aside/eventos/${evento.id_evento}`
       : `${import.meta.env.VITE_REACT_APP_API_URL}/api/aside/eventos`;
 
-    axios[method](url, data)
+    axios[method](url, dataToSend) // Usamos el nuevo objeto dataToSend
       .then(() => {
         onSuccess();
         setForm({
@@ -90,6 +115,7 @@ const EventoForm = ({ evento, onSuccess, clasificaciones = [] }) => {
         });
         setUsandoNuevaClasificacion(false);
         setNuevaClasificacion("");
+        setUsandoOtroPrograma(false);
         alert("Evento guardado correctamente");
       })
       .catch((err) => {
@@ -104,10 +130,9 @@ const EventoForm = ({ evento, onSuccess, clasificaciones = [] }) => {
         <label className="form-label">Descripción (Programa)</label>
         <select
           name="Descripcion"
-          value={form.Descripcion}
-          onChange={handleChange}
+          value={usandoOtroPrograma ? "__otro__" : form.Descripcion}
+          onChange={handleDescripcionChange}
           className="form-select"
-          required
         >
           <option value="">-- Selecciona un programa --</option>
           {Object.entries(programasAgrupados).map(([titulo, programas]) => (
@@ -119,8 +144,23 @@ const EventoForm = ({ evento, onSuccess, clasificaciones = [] }) => {
               ))}
             </optgroup>
           ))}
+          <option value="__otro__">+ Agregar otro programa</option>
         </select>
       </div>
+
+      {usandoOtroPrograma && (
+        <div className="mb-2">
+          <input
+            type="text"
+            name="Descripcion"
+            value={form.Descripcion}
+            onChange={handleChange}
+            placeholder="Agrega otro programa"
+            className="form-control"
+            required
+          />
+        </div>
+      )}
 
       <div className="mb-2">
         <input

@@ -88,7 +88,7 @@ const PaginaDetallePrograma = () => {
           <aside className="col-md-4 col-lg-3 mb-3">
             <EventoSide />
           </aside>
-          <section className="content col-md-9">
+          <section className="col-md-9">
             {detalle.Banner && (
               <img
                 src={`${import.meta.env.VITE_REACT_APP_API_URL}${detalle.Banner}`}

@@ -114,7 +114,7 @@ const PaginaInicio = () => {
                         <div
                             className="circle-img-wrapper-btn-bajos"
                             style={{
-                                backgroundImage: `url(${import.meta.env.VITE_REACT_APP_API_URL}}${banner.Banner})`,
+                                backgroundImage: `url(${import.meta.env.VITE_REACT_APP_API_URL}${banner.Banner})`,
                                 backgroundSize: 'cover',
                                 backgroundPosition: 'center',
                                 backgroundRepeat: 'no-repeat'
@@ -160,6 +160,9 @@ const PaginaInicio = () => {
 
                 ))}
             </section>
+
+            {/* AQUI SE TIENE QUE VER EL NUEVO COMPONENTE   */}
+
             {/* AQUI VA EL FORMULARIO  */}
             <div>
                 <section>

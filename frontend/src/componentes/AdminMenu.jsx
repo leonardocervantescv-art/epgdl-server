@@ -13,7 +13,7 @@ const AdminMenu = () => {
     { name: 'Secciones', path: '/admin/secciones', icon: 'fa-sitemap' },
     { name: 'Banners y Contenido', path: '/admin/contenido', icon: 'fa-image' },
     { name: 'Programas', path: '/admin/programas', icon: 'fa-book' },
-    { name: 'Diplomado y Fechas', path: '/admin/aside', icon: 'fa-calendar-alt' },
+    { name: 'Eventos y Fechas', path: '/admin/aside', icon: 'fa-calendar-alt' },
     { name: 'Contenido de Programas', path: '/admin/detalles-programas', icon: 'fa-file-alt' },
     { name: 'Pagina de Inicio', path: '/admin/inicio-admin', icon: 'fa-file-alt' },
   ];

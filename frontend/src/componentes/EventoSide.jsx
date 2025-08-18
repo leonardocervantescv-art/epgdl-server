@@ -1,8 +1,7 @@
-// COMPONENTES DE PROXIMOS INICIOS Y HORARIOS
-// ESTE ES EL QUE SE OCUPA EN EL LAS PÁGINAS ES LO QUE SE VE EN EL NAVEGADOR 
+// EventoSide.jsx - Se simplifica, ya que el backend hace todo el trabajo.
 
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from 'axios';  
 
 const EventoSide = () => {
   const [eventos, setEventos] = useState([]);
@@ -11,23 +10,25 @@ const EventoSide = () => {
   const [seccionEventos, setSeccionEventos] = useState('');
 
   useEffect(() => {
-    axios.get(`${import.meta.env.VITE_REACT_APP_API_URL}/api/aside/eventos?limit=3`)
-      .then(res => setEventos(res.data))
-      .catch(console.error);
-
-    axios.get(`${import.meta.env.VITE_REACT_APP_API_URL}/api/aside/contacto`)
-      .then(res => {
-        if (res.data.length) setHorario(res.data[0]);
-      })
-      .catch(console.error);
-
-    // → Aquí pedimos slug + extra
-    axios.get(`${import.meta.env.VITE_REACT_APP_API_URL}/api/contenido/extra/evento`)
-      .then(res => {
-        setSlugEventos(res.data.slug);
-        setSeccionEventos(res.data.extra);
-      })
-      .catch(console.error);
+    // Solo hacemos las peticiones necesarias. La lógica de filtrado está en el backend.
+    Promise.all([
+      axios.get(`${import.meta.env.VITE_REACT_APP_API_URL}/api/aside/eventos?limit=3`),
+      axios.get(`${import.meta.env.VITE_REACT_APP_API_URL}/api/aside/contacto`),
+      axios.get(`${import.meta.env.VITE_REACT_APP_API_URL}/api/contenido/extra/evento`)
+    ])
+    .then(([eventosRes, contactoRes, extraRes]) => {
+      setEventos(eventosRes.data);
+      if (contactoRes.data.length) setHorario(contactoRes.data[0]);
+      setSlugEventos(extraRes.data.slug);
+      setSeccionEventos(extraRes.data.extra);
+    })
+    .catch(error => {
+      console.error("Error al cargar los datos del aside", error);
+      setEventos([]);
+      setHorario(null);
+      setSlugEventos('');
+      setSeccionEventos('');
+    });
   }, []);
 
   return (
@@ -53,7 +54,6 @@ const EventoSide = () => {
             Ver todos
           </a>
         )}
-        { }
         <section className="hours">
           <h3>HORARIO DE ATENCIÓN</h3>
           {horario ? (
@@ -81,4 +81,3 @@ const EventoSide = () => {
 }
 
 export default EventoSide;
-

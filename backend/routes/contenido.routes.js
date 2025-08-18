@@ -8,6 +8,12 @@ router.get('/', contenidoController.obtenerTodosLosContenidos);
 router.get('/filter', contenidoController.getContenidosFiltrados); // 
 router.get('/fill', contenidoController.getProgramasFiltrados); // PARA EL ADMINISTRADOR DE LOS PROGRAMAS
 router.get('/extra/:valor', contenidoController.getContenidoByExtra); // PARA EL BOTÓN DE EVENTOS Y HORARIOS
+router.put("/:id/mover", contenidoController.moverContenido); //PARA MOVER SUBMENÚS DE SECCION    
+router.put("/:id/toggle", contenidoController.toggleContenido); // PARA ACTIVAR O DESACTIVAR SUBMENÚS
+router.put("/:id/toggle-seccion", contenidoController.toggleSeccion);
+    
+
+
 
 
 // Crear nuevo contenido

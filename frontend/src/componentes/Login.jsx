@@ -52,7 +52,7 @@ const Login = ({ setUsuario }) => {
     <div
       className="d-flex justify-content-center align-items-center vh-100"
       style={{
-        backgroundImage: "url('/img/med.jpg')",
+        backgroundImage: "url('/assets/med.jpg')",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',

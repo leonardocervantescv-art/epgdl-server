@@ -43,7 +43,7 @@ const AdminAside = () => {
   };
 
   // Clasificaciones base + dinámicas
-  const clasificacionesBase = ["posgrados", "diplomados"];
+  const clasificacionesBase = ["POSGRADOS", "DIPLOMADOS"];
   const clasificacionesDinamicas = eventos
     .map((e) => e.Clasificacion)
     .filter(Boolean);

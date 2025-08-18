@@ -39,15 +39,21 @@ exports.eliminarSeccion = (req, res) => {
   });
 };
 
+// secciones.controller.js
 exports.obtenerSeccionesConContenido = (req, res) => {
   const sql = `
-    SELECT s.*, c.id_contenido, c.Titulo, c.Banner
+    SELECT s.id_secciones, s.Nombre, s.Activo as seccion_activa,
+           c.id_contenido, c.Titulo, c.Activo as contenido_activo
     FROM Secciones s
     LEFT JOIN Contenido c ON s.id_secciones = c.id_secciones
+    ORDER BY s.id_secciones, c.id_contenido
   `;
 
   db.query(sql, (err, results) => {
-    if (err) return res.status(500).json({ error: err.message });
+    if (err) {
+      console.error("Error al obtener secciones:", err);
+      return res.status(500).json({ error: "Error al obtener secciones" });
+    }
 
     const seccionesMap = {};
 
@@ -56,6 +62,7 @@ exports.obtenerSeccionesConContenido = (req, res) => {
         seccionesMap[row.id_secciones] = {
           id_secciones: row.id_secciones,
           Nombre: row.Nombre,
+          Activo: row.seccion_activa,
           contenido: []
         };
       }
@@ -64,7 +71,7 @@ exports.obtenerSeccionesConContenido = (req, res) => {
         seccionesMap[row.id_secciones].contenido.push({
           id_contenido: row.id_contenido,
           Titulo: row.Titulo,
-          Banner: row.Banner
+          Activo: row.contenido_activo
         });
       }
     });
@@ -72,6 +79,7 @@ exports.obtenerSeccionesConContenido = (req, res) => {
     res.json(Object.values(seccionesMap));
   });
 };
+
 
 
 

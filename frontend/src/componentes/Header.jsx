@@ -59,25 +59,30 @@ useEffect(() => {
     <Navbar.Collapse id="main-navbar">
       {/* MENÚ DINÁMICO */}
       <Nav className="mx-auto">
-        {secciones.map(seccion => (
-          <NavDropdown
-            key={seccion.id_secciones}
-            title={seccion.Nombre}
-            id={`seccion-${seccion.id_secciones}`}
-            className="hover-dropdown"
-          >
-            {seccion.contenido.map(item => (
-              <NavDropdown.Item
-                as={Link}
-                key={item.id_contenido}
-                to={`/${slugify(seccion.Nombre)}/${slugify(item.Titulo)}`}
-              >
-                {item.Titulo}
-              </NavDropdown.Item>
-            ))}
-          </NavDropdown>
-        ))}
-      </Nav>
+  {secciones
+    .filter(seccion => Number(seccion.Activo) === 1) // solo secciones activas
+    .map(seccion => (
+      <NavDropdown
+        key={seccion.id_secciones}
+        title={seccion.Nombre}
+        id={`seccion-${seccion.id_secciones}`}
+        className="hover-dropdown"
+      >
+        {seccion.contenido
+          .filter(item => Number(item.Activo) === 1) // solo submenús activos
+          .map(item => (
+            <NavDropdown.Item
+              as={Link}
+              key={item.id_contenido}
+              to={`/${slugify(seccion.Nombre)}/${slugify(item.Titulo)}`}
+            >
+              {item.Titulo}
+            </NavDropdown.Item>
+          ))}
+      </NavDropdown>
+    ))}
+</Nav>
+
 
       {/* REDES SOCIALES */}
       <div className="d-flex align-items-center gap-3 redes-header">
