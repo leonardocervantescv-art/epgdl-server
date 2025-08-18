@@ -34,7 +34,7 @@ exports.enviarFormulario = (req, res) => {
     "g-recaptcha-response": captcha,
   } = req.body;
 
-  const secretKey = "6Lf7nJsrAAAAACrTH-m-wzaxks0Sqz-JhTDEJs1U";
+  const secretKey = "6LccnqorAAAAAAF4rRo-A-IcsojKJZFRI3DRjBAm";
 
   if (!captcha) {
     return res.status(400).json({ message: "Captcha no verificado" });
@@ -52,10 +52,10 @@ exports.enviarFormulario = (req, res) => {
 
       // 2) Configuramos el transporte SMTP CORRECTO para Gmail
       const transporter = nodemailer.createTransport({
-        service: "gmail", // ← Opción más sencilla
+        service: "gmail",
         auth: {
-          user: "leonardocervantescv@gmail.com",
-          pass: "hndxhfbvxedhltwu", // ← Tu App Password (16 caracteres sin espacios)
+          user: "epgdladmministrador@gmail.com",
+          pass: "jysanmboqqleoptz", // ← Tu App Password (16 caracteres sin espacios)
         },
       });
 

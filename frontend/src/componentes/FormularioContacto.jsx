@@ -24,7 +24,7 @@ const FormularioContacto = () => {
   };
   const [form, setForm] = useState(initialFormState);
 
-  const siteKey = "6LdndaYrAAAAAEsPQsv4UNdsfQo5KYjSiRFleI5M";
+  const siteKey = "6LccnqorAAAAAE_4pAcNVOAXDKRcCR6RKpSVWSzI";
   // 6Lf7nJsrAAAAAEdsKxOBQO3pymnSYqON0Mp28O21 LLAVE LOCAL
 
   useEffect(() => {

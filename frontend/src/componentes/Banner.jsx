@@ -12,7 +12,6 @@ const Banner = ({ slug }) => {
       try {
         // Llamamos a /api/banner/slug/:slug
         const res = await axios.get(`${import.meta.env.VITE_REACT_APP_API_URL}/api/banner/slug/${slug}`);
-        // Asegúrate de que el backend responda { Banner: "/uploads/banners/xxx.jpg" }
         if (res.data.Banner) {
           setBannerPath(res.data.Banner);
         } else {

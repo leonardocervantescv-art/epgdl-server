@@ -15,6 +15,8 @@ const PaginaDetallePrograma = () => {
   const [error, setError] = useState(null);
   const [bloques, setBloques] = useState([]);
   const [bloqueActivo, setBloqueActivo] = useState(null);
+  const [slugEventos, setSlugEventos] = useState("");
+  const [seccionEventos, setSeccionEventos] = useState("");
 
   // Efecto que se ejecuta cada vez que el 'slug' cambia
   useEffect(() => {
@@ -26,11 +28,15 @@ const PaginaDetallePrograma = () => {
 
       try {
         // Petición para obtener los detalles del programa
-        const detalleRes = await axios.get(`${import.meta.env.VITE_REACT_APP_API_URL}/api/programas/slug/${slug}`);
+        const detalleRes = await axios.get(
+          `${import.meta.env.VITE_REACT_APP_API_URL}/api/programas/slug/${slug}`
+        );
         setDetalle(detalleRes.data);
 
         // Petición para obtener los bloques del programa
-        const bloquesRes = await axios.get(`${import.meta.env.VITE_REACT_APP_API_URL}/api/bloques/slug/${slug}`);
+        const bloquesRes = await axios.get(
+          `${import.meta.env.VITE_REACT_APP_API_URL}/api/bloques/slug/${slug}`
+        );
         const data = Array.isArray(bloquesRes.data) ? bloquesRes.data : [];
         setBloques(data);
 
@@ -53,6 +59,25 @@ const PaginaDetallePrograma = () => {
 
     fetchData();
   }, [slug]);
+
+  //NECESARIO PARA QUE FUNCIONE EL BOTÓN FLOTANTE DE LOS EVENTOS
+  useEffect(() => {
+    axios
+      .get(
+        `${import.meta.env.VITE_REACT_APP_API_URL}/api/contenido/extra/evento`
+      )
+      .then((res) => {
+        setSlugEventos(res.data.slug);
+        setSeccionEventos(res.data.extra);
+      })
+      .catch(console.error);
+  }, []);
+
+  const handleIrAEventos = () => {
+    if (seccionEventos && slugEventos) {
+      navigate(`/${seccionEventos}/${slugEventos}`);
+    }
+  };
 
   // Renderiza el mensaje de error si existe
   if (error) {
@@ -91,7 +116,9 @@ const PaginaDetallePrograma = () => {
           <section className="col-md-9">
             {detalle.Banner && (
               <img
-                src={`${import.meta.env.VITE_REACT_APP_API_URL}${detalle.Banner}`}
+                src={`${import.meta.env.VITE_REACT_APP_API_URL}${
+                  detalle.Banner
+                }`}
                 alt={detalle.Nombre}
                 className="img-fluid mb-4"
               />
@@ -135,6 +162,24 @@ const PaginaDetallePrograma = () => {
         <footer>
           <Footer />
         </footer>
+      </div>
+      {/* BOTONES FLOTANTES */}
+      <div
+        className="floating-btn whatsapp-btn"
+        onClick={() =>
+          window.open(
+            "https://api.whatsapp.com/send?phone=8112142744&text=Hola, me gustaría recibir más información",
+            "_blank"
+          )
+        }
+      >
+        <i className="fab fa-whatsapp"></i>
+        <span>WhatsApp</span>
+      </div>
+
+      <div className="floating-btn eventos-btn" onClick={handleIrAEventos}>
+        <i className="fas fa-calendar-alt"></i>
+        <span>Eventos</span>
       </div>
     </div>
   );
