@@ -11,7 +11,7 @@ exports.crearContenido = (req, res) => {
     return res.status(400).json({ error: 'Titulo e id_secciones son obligatorios.' });
   }
 
-  const sql = `INSERT INTO Contenido (Titulo, id_secciones, slug) VALUES (?, ?, ?)`;
+  const sql = `INSERT INTO contenido (Titulo, id_secciones, slug) VALUES (?, ?, ?)`;
   db.query(sql, [Titulo, id_secciones, slug], (err, result) => {
     if (err) return res.status(500).json({ error: err.message });
     res.status(201).json({ message: 'Contenido creado', id: result.insertId });
@@ -27,7 +27,7 @@ exports.editarContenido = (req, res) => {
     return res.status(400).json({ error: 'El Titulo es obligatorio.' });
   }
 
-  const sql = `UPDATE Contenido SET Titulo = ? WHERE id_contenido = ?`;
+  const sql = `UPDATE contenido SET Titulo = ? WHERE id_contenido = ?`;
   db.query(sql, [Titulo, id], (err) => {
     if (err) return res.status(500).json({ error: err.message });
     res.json({ message: 'Contenido actualizado' });
@@ -36,7 +36,7 @@ exports.editarContenido = (req, res) => {
 
 exports.eliminarContenido = (req, res) => {
   const { id } = req.params;
-  db.query('DELETE FROM Contenido WHERE id_contenido = ?', [id], (err) => {
+  db.query('DELETE FROM contenido WHERE id_contenido = ?', [id], (err) => {
     if (err) return res.status(500).json({ error: err.message });
     res.json({ message: 'Contenido eliminado' });
   });
@@ -48,7 +48,7 @@ exports.eliminarContenido = (req, res) => {
 
   try {
     const rows = await query(
-      'SELECT * FROM Contenido WHERE slug = ?',
+      'SELECT * FROM contenido WHERE slug = ?',
       [slug]
     );
     if (rows.length === 0) {
@@ -66,7 +66,7 @@ exports.eliminarContenido = (req, res) => {
 
 exports.obtenerTodosLosContenidos = async (req, res) => {
   try {
-    const rows = await query('SELECT * FROM Contenido');
+    const rows = await query('SELECT * FROM contenido');
     res.json(rows);
   } catch (error) {
     console.error('[obtenerTodosLosContenidos] ', error);
@@ -96,7 +96,7 @@ exports.updateContenido = async (req, res) => {
 
   try {
     await query(
-      'UPDATE Contenido SET Titulo = ?, slug = ?, id_secciones = ? WHERE id_contenido = ?',
+      'UPDATE contenido SET Titulo = ?, slug = ?, id_secciones = ? WHERE id_contenido = ?',
       [Titulo, nuevoSlug, id_secciones, id]
     );
     res.json({ message: 'Contenido actualizado correctamente.' });
@@ -109,7 +109,7 @@ exports.updateContenido = async (req, res) => {
 
 //Contenidos Filtrados para Administrador de Banners Y Contenido
 exports.getContenidosFiltrados = (req, res) => {
-  const sql = `select * from Contenido where id_secciones != 2`;
+  const sql = `select * from contenido where id_secciones != 2`;
   db.query(sql, (err, rows) => {
     if(err) {
       console.error('No se obtuvieron contenidos filtrados: ', err)
@@ -121,7 +121,7 @@ exports.getContenidosFiltrados = (req, res) => {
 
 //Contenido Filtrado para Administrador de Programas
 exports.getProgramasFiltrados = (req, res) => {
-  const sql = 'select * from Contenido where id_secciones = 2';
+  const sql = 'select * from contenido where id_secciones = 2';
   db.query(sql, (err, rows) => {
     if(err) {
       console.error('No se obtieron programas filtrados', err)
@@ -131,14 +131,11 @@ exports.getProgramasFiltrados = (req, res) => {
   });
 };
 
-//PARA EL BOTON DE EVENTOS Y HORARIOS
-// controllers/contenido.controller.js
-// controllers/contenido.controller.js
 exports.getContenidoByExtra = (req, res) => {
   const { valor } = req.params;
   const sql = `
     SELECT slug, extra
-    FROM Contenido
+    FROM contenido
     WHERE extra = ?
     LIMIT 1
   `;
@@ -163,7 +160,7 @@ exports.moverContenido = (req, res) => {
     return res.status(400).json({ error: "id_secciones inválido" });
   }
 
-  const sql = `UPDATE Contenido SET id_secciones = ? WHERE id_contenido = ?`;
+  const sql = `UPDATE contenido SET id_secciones = ? WHERE id_contenido = ?`;
   db.query(sql, [nuevaSeccionId, id], (err, result) => {
     if (err) {
       console.error("Error al mover submenú:", err);
@@ -176,7 +173,7 @@ exports.moverContenido = (req, res) => {
   });
 };
 
-// ✅ Habilitar / deshabilitar (usa el campo 'Activo' si ya existe)
+// Habilitar / deshabilitar 
 exports.toggleContenido = (req, res) => {
   const { id } = req.params;
   let { Activo } = req.body;
@@ -187,7 +184,7 @@ exports.toggleContenido = (req, res) => {
     return res.status(400).json({ error: "Valor de 'Activo' inválido (0 o 1)" });
   }
 
-  const sql = `UPDATE Contenido SET Activo = ? WHERE id_contenido = ?`;
+  const sql = `UPDATE contenido SET Activo = ? WHERE id_contenido = ?`;
   db.query(sql, [val, id], (err, result) => {
     if (err) {
       console.error("Error al actualizar 'Activo':", err);
@@ -202,7 +199,6 @@ exports.toggleContenido = (req, res) => {
 
 
 //HABILITAR Y DESHABILITAR SECCIONES
-// ... dentro de secciones.js
 
 exports.toggleSeccion = (req, res) => {
   const { id } = req.params;
@@ -213,7 +209,7 @@ exports.toggleSeccion = (req, res) => {
     return res.status(400).json({ error: "Valor de 'Activo' inválido (0 o 1)" });
   }
 
-  const sql = `UPDATE Secciones SET Activo = ? WHERE id_secciones = ?`;
+  const sql = `UPDATE secciones SET Activo = ? WHERE id_secciones = ?`;
   db.query(sql, [val, id], (err, result) => {
     if (err) {
       console.error("Error al actualizar 'Activo' de la sección:", err);

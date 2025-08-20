@@ -13,7 +13,7 @@ exports.login = (req, res) => {
     return res.status(400).json({ message: 'Todos los campos son obligatorios.' });
   }
 
-  const query = 'SELECT * FROM Usuarios WHERE Usuario = ?';
+  const query = 'SELECT * FROM usuarios WHERE Usuario = ?';
   db.query(query, [Usuario], async (err, results) => {
     if (err) return res.status(500).json({ message: 'Error del servidor.' });
     if (results.length === 0) return res.status(401).json({ message: 'Usuario no encontrado.' });
@@ -53,7 +53,7 @@ exports.registrar = async (req, res) => {
 
   try {
     const hash = await bcrypt.hash(Contrasena, 10);
-    const sql = 'INSERT INTO Usuarios (Nombre, Usuario, Contrasena, Rol) VALUES (?, ?, ?, ?)';
+    const sql = 'INSERT INTO usuarios (Nombre, Usuario, Contrasena, Rol) VALUES (?, ?, ?, ?)';
 
     db.query(sql, [Nombre, Usuario, hash, Rol], (err, result) => {
       if (err) {
@@ -71,7 +71,7 @@ exports.registrar = async (req, res) => {
 
 // Obtener todos los usuarios
 exports.getUsuarios = (req, res) => {
-  const query = 'SELECT id_usuarios, Nombre, Usuario, Rol FROM Usuarios';
+  const query = 'SELECT id_usuarios, Nombre, Usuario, Rol FROM usuarios';
   db.query(query, (err, results) => {
     if (err) return res.status(500).json({ message: 'Error al obtener usuarios' });
     res.json(results);
@@ -81,7 +81,7 @@ exports.getUsuarios = (req, res) => {
 // Eliminar usuario
 exports.deleteUsuario = (req, res) => {
   const { id } = req.params;
-  const query = 'DELETE FROM Usuarios WHERE id_usuarios = ?';
+  const query = 'DELETE FROM usuarios WHERE id_usuarios = ?';
   db.query(query, [id], (err, result) => {
     if (err) return res.status(500).json({ message: 'Error al eliminar usuario' });
     res.json({ message: 'Usuario eliminado correctamente' });
@@ -103,10 +103,10 @@ exports.updateUsuario = async (req, res) => {
 
     if (Contrasena) {
       const hashed = await bcrypt.hash(Contrasena, 10);
-      query = 'UPDATE Usuarios SET Nombre = ?, Usuario = ?, Contrasena = ?, Rol = ? WHERE id_usuarios = ?';
+      query = 'UPDATE usuarios SET Nombre = ?, Usuario = ?, Contrasena = ?, Rol = ? WHERE id_usuarios = ?';
       params = [Nombre, Usuario, hashed, Rol, id];
     } else {
-      query = 'UPDATE Usuarios SET Nombre = ?, Usuario = ?, Rol = ? WHERE id_usuarios = ?';
+      query = 'UPDATE usuarios SET Nombre = ?, Usuario = ?, Rol = ? WHERE id_usuarios = ?';
       params = [Nombre, Usuario, Rol, id];
     }
 

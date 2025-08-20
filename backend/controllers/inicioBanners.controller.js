@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 exports.getBanners = (req, res) => {
-  db.query('SELECT * FROM InicioBanners', (error, results) => {
+  db.query('SELECT * FROM iniciobanners', (error, results) => {
     if (error) return res.status(500).json({ message: 'Error al obtener banners', error });
     res.json(results);
   });
@@ -17,7 +17,7 @@ exports.createBanner = (req, res) => {
 
   const Banner = `/uploads/${file.filename}`;
   db.query(
-    'INSERT INTO InicioBanners (Banner, Enlace, Alt, Posicion, id_inicio) VALUES (?, ?, ?, ?, ?)',
+    'INSERT INTO iniciobanners (Banner, Enlace, Alt, Posicion, id_inicio) VALUES (?, ?, ?, ?, ?)',
     [Banner, Enlace, Alt, Posicion, id_inicio],
     (error) => {
       if (error) return res.status(500).json({ message: 'Error al crear banner', error });
@@ -29,14 +29,14 @@ exports.createBanner = (req, res) => {
 exports.deleteBanner = (req, res) => {
   const { id } = req.params;
 
-  db.query('SELECT Banner FROM InicioBanners WHERE id_banner = ?', [id], (err, results) => {
+  db.query('SELECT Banner FROM iniciobanners WHERE id_banner = ?', [id], (err, results) => {
     if (err) return res.status(500).json({ message: 'Error al buscar banner', err });
     if (results.length === 0) return res.status(404).json({ message: 'Banner no encontrado' });
 
     const bannerPath = path.join(__dirname, '..', 'public', results[0].Banner);
     if (fs.existsSync(bannerPath)) fs.unlinkSync(bannerPath);
 
-    db.query('DELETE FROM InicioBanners WHERE id_banner = ?', [id], (error) => {
+    db.query('DELETE FROM iniciobanners WHERE id_banner = ?', [id], (error) => {
       if (error) return res.status(500).json({ message: 'Error al eliminar banner', error });
       res.json({ message: 'Banner eliminado correctamente' });
     });

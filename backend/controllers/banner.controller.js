@@ -34,7 +34,7 @@ const uploadBannerBySlug = async (req, res) => {
     }
 
     values.push(slug);
-    const sql = `UPDATE Contenido SET ${fields.join(', ')} WHERE slug = ?`;
+    const sql = `UPDATE contenido SET ${fields.join(', ')} WHERE slug = ?`;
 
     const result = await query(sql, values);
 
@@ -53,7 +53,7 @@ const uploadBannerBySlug = async (req, res) => {
 const getBannerByContenido = async (req, res) => {
   try {
     const { id_contenido } = req.params;
-    const rows = await query('SELECT Banner FROM Contenido WHERE id_contenido = ?', [id_contenido]);
+    const rows = await query('SELECT Banner FROM contenido WHERE id_contenido = ?', [id_contenido]);
 
     if (rows.length === 0) return res.status(404).json({ message: 'Contenido no encontrado.' });
 
@@ -69,7 +69,7 @@ const getBannerBySlug = async (req, res) => {
 
   try {
     const rows = await query(
-      'SELECT Banner FROM Contenido WHERE slug = ?',
+      'SELECT Banner FROM contenido WHERE slug = ?',
       [slug]
     );
     if (rows.length === 0) {
@@ -88,7 +88,7 @@ const deleteBannerBySlug = async (req, res) => {
   try {
     const { slug } = req.params;
     // Obtener ruta actual
-    const rows = await query('SELECT Banner FROM Contenido WHERE slug = ?', [slug]);
+    const rows = await query('SELECT Banner FROM contenido WHERE slug = ?', [slug]);
     if (rows.length === 0) {
       return res.status(404).json({ message: 'Página no encontrada.' });
     }
@@ -100,7 +100,7 @@ const deleteBannerBySlug = async (req, res) => {
     }
 
     // Actualizar BD a NULL
-    await query('UPDATE Contenido SET Banner = NULL WHERE slug = ?', [slug]);
+    await query('UPDATE contenido SET Banner = NULL WHERE slug = ?', [slug]);
     res.json({ message: 'Banner eliminado correctamente.' });
   } catch (error) {
     console.error('[deleteBannerBySlug] ', error);

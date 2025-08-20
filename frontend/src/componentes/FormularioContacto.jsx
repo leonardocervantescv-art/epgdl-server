@@ -7,7 +7,6 @@ const FormularioContacto = () => {
   const [programas, setProgramas] = useState([]); 
   const [captchaValue, setCaptchaValue] = useState(null);
 
-  // Nuevo estado para el mensaje de éxito
   const [successMessage, setSuccessMessage] = useState("");
 
   const recaptchaRef = useRef(null);
@@ -45,7 +44,6 @@ const FormularioContacto = () => {
 
   useEffect(() => {
     if (form.Clasificacion) {
-      // reset del segundo select al cambiar la clasificación
       setForm((prev) => ({ ...prev, id_evento: "" }));
 
       axios
@@ -92,20 +90,16 @@ const FormularioContacto = () => {
         data
       );
 
-      // Mostrar el mensaje de éxito
       setSuccessMessage(
         "¡Muchas gracias! Un asesor se comunicará contigo muy pronto."
       );
 
-      // Ocultar el mensaje después de 5 segundos
       setTimeout(() => {
         setSuccessMessage("");
       }, 5000);
 
-      // Limpiamos los campos del formulario
       setForm(initialFormState);
 
-      // Reseteamos el reCAPTCHA
       if (recaptchaRef.current) {
         recaptchaRef.current.reset();
       }
@@ -128,7 +122,6 @@ const FormularioContacto = () => {
       <div className="row align-items-center">
         <div className="col-md-7">
           <form onSubmit={handleSubmit}>
-            {/* Mensaje de éxito/error */}
             {successMessage && (
               <div
                 className={`alert ${
@@ -141,7 +134,6 @@ const FormularioContacto = () => {
                 {successMessage}
               </div>
             )}
-
             <div className="mb-3">
               <label className="form-label">NOMBRE</label>
               <input
@@ -210,7 +202,7 @@ const FormularioContacto = () => {
                 required
                 onChange={handleChange}
                 value={form.id_evento}
-                disabled={!form.Clasificacion} // opcional
+                disabled={!form.Clasificacion}
               >
                 <option value="">Seleccione una opción</option>
                 {programas.map((p) => (
@@ -302,7 +294,6 @@ const FormularioContacto = () => {
               ></textarea>
             </div>
 
-            {/* CAPTCHA */}
             <div className="mb-3 d-flex justify-content-center">
               <ReCAPTCHA
                 ref={recaptchaRef}

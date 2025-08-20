@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 exports.getInicio = (req, res) => {
-  db.query('SELECT * FROM Inicio', (error, results) => {
+  db.query('SELECT * FROM inicio', (error, results) => {
     if (error) {
       console.error('Error al obtener datos de Inicio:', error);
       return res.status(500).json({ message: 'Error al obtener los datos de Inicio', error });
@@ -21,7 +21,7 @@ exports.updateInicio = (req, res) => {
     videoURL = `/uploads/${req.file.filename}`;
   }
 
-  db.query('SELECT * FROM Inicio WHERE id_inicio = ?', [id], (err, results) => {
+  db.query('SELECT * FROM inicio WHERE id_inicio = ?', [id], (err, results) => {
     if (err) return res.status(500).json({ message: 'Error al buscar registro', err });
     if (results.length === 0) return res.status(404).json({ message: 'Registro no encontrado' });
 
@@ -34,7 +34,7 @@ exports.updateInicio = (req, res) => {
     const finalVideo = videoURL || oldVideo;
 
     db.query(
-      'UPDATE Inicio SET Texto = ?, Video = ? WHERE id_inicio = ?',
+      'UPDATE inicio SET Texto = ?, Video = ? WHERE id_inicio = ?',
       [Texto, finalVideo, id],
       (error) => {
         if (error) return res.status(500).json({ message: 'Error al actualizar', error });
@@ -53,7 +53,7 @@ exports.videoInicio = (req, res) => {
     videoPath = `/uploads/${req.file.filename}`;
   }
 
-  const sql = 'INSERT INTO Inicio (Texto, Video) VALUES (?, ?)';
+  const sql = 'INSERT INTO inicio (Texto, Video) VALUES (?, ?)';
   db.query(sql, [Texto, videoPath], (err, results) => {
     if (err) {
       console.error('No se pudo guardar el video o el texto', err);

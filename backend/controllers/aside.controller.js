@@ -137,7 +137,7 @@ exports.actualizarContacto = (req, res) => {
   const { id } = req.params;
   const { Horario, Sabado, Informes, Diplomados } = req.body;
   db.query(
-    "UPDATE Horarios SET Horario=?, Sabado=?, Informes=?, Diplomados=? WHERE id_horarios=?",
+    "UPDATE horarios SET Horario=?, Sabado=?, Informes=?, Diplomados=? WHERE id_horarios=?",
     [Horario, Sabado, Informes, Diplomados, id],
     (err) => {
       if (err) return res.status(500).json({ error: err.message });
@@ -148,7 +148,7 @@ exports.actualizarContacto = (req, res) => {
 
 exports.eliminarContacto = (req, res) => {
   const { id } = req.params;
-  db.query("DELETE FROM Horarios WHERE id_horarios=?", [id], (err) => {
+  db.query("DELETE FROM horarios WHERE id_horarios=?", [id], (err) => {
     if (err) return res.status(500).json({ error: err.message });
     res.json({ message: "Contacto eliminado" });
   });

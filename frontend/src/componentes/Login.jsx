@@ -30,24 +30,6 @@ const Login = ({ setUsuario }) => {
     }
   };
 
-  // Este useEffect parece ser un middleware de validación,
-  // pero está en el lugar incorrecto. Debería estar en un componente
-  // de ruta protegida para que no se ejecute en la página de login.
-  // Lo he comentado para evitar un bucle de redirección en caso de error.
-  /*
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-        axios.get(`${import.meta.env.VITE_REACT_APP_API_URL}/api/admin/panel`, {
-          headers: { Authorization: `Bearer ${token}` }
-        }).catch(() => {
-          localStorage.removeItem('token');
-          navigate('/login');
-        });
-    }
-  }, [navigate]);
-  */
-
   return (
     <div
       className="d-flex justify-content-center align-items-center vh-100"

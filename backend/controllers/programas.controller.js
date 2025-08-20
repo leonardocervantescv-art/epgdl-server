@@ -5,7 +5,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-// 🔧 Define correctamente la variable `storage`
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'public/uploads/banners');
@@ -15,10 +15,9 @@ const storage = multer.diskStorage({
   }
 });
 
-// 🔧 Y ahora sí puedes usar `storage`
 const upload = multer({ storage }).single('banner');
 
-// ✔ Corrige esta función (no toco nada más)
+
 exports.uploadPrograma = (req, res) => {
   upload(req, res, err => {
     if (err) return res.status(500).json({ message: 'Error al subir archivo' });
@@ -26,7 +25,7 @@ exports.uploadPrograma = (req, res) => {
     const { slug, texto } = req.body;
     const bannerPath = req.file ? `/uploads/banners/${req.file.filename}` : null;
 
-    let queryStr = `UPDATE Programas SET `;
+    let queryStr = `UPDATE programas SET `;
     const values = [];
 
     if (texto) {
@@ -56,7 +55,7 @@ exports.uploadPrograma = (req, res) => {
 exports.obtenerProgramasPorContenido = async (req, res) => {
   const { id } = req.params;
   try {
-    const rows = await query('SELECT * FROM Programas WHERE id_contenido = ?', [id]);
+    const rows = await query('SELECT * FROM programas WHERE id_contenido = ?', [id]);
     res.json(rows);
   } catch (error) {
     console.error('Error al obtener programas:', error);
@@ -68,7 +67,7 @@ exports.obtenerProgramasPorContenido = async (req, res) => {
 
 exports.getProgramaBySlug = (req, res) => {
   const { slug } = req.params;
-  const sql = 'SELECT * FROM Programas WHERE slug = ?';
+  const sql = 'SELECT * FROM programas WHERE slug = ?';
 
   db.query(sql, [slug], (err, result) => {
     if (err) {

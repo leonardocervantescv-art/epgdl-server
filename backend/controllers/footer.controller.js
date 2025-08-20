@@ -4,7 +4,7 @@ const path = require('path');
 
 // Obtener footer
 exports.getFooter = (req, res) => {
-  db.query('SELECT * FROM Footer LIMIT 1', (err, result) => {
+  db.query('SELECT * FROM footer LIMIT 1', (err, result) => {
     if (err) return res.status(500).json({ error: 'Error al obtener el footer' });
     res.json(result[0] || {});
   });
@@ -18,7 +18,7 @@ exports.createFooter = (req, res) => {
   const telImagen = req.files['telImagen'] ? req.files['telImagen'][0].filename : null;
 
   const sql = `
-    INSERT INTO Footer (Logo, Mapa, telImagen, Telefono, Direccion, Campus, Copyright)
+    INSERT INTO footer (Logo, Mapa, telImagen, Telefono, Direccion, Campus, Copyright)
     VALUES (?, ?, ?, ?, ?, ?, ?)
   `;
   const values = [Logo, Mapa, telImagen, Telefono, Direccion, Campus, Copyright];
@@ -34,7 +34,7 @@ exports.updateFooter = (req, res) => {
   const { id } = req.params;
   const { Campus, Telefono, Direccion, Copyright } = req.body;
 
-  const sqlSelect = 'SELECT * FROM Footer WHERE id_footer = ?';
+  const sqlSelect = 'SELECT * FROM footer WHERE id_footer = ?';
   db.query(sqlSelect, [id], (err, result) => {
     if (err || result.length === 0) return res.status(404).json({ error: 'Footer no encontrado' });
 
@@ -63,7 +63,7 @@ if (req.files['telImagen']) {
 
 
     const sqlUpdate = `
-      UPDATE Footer SET Logo = ?, Mapa = ?, telImagen = ?, Telefono = ?, Direccion = ?, Campus = ?, Copyright = ?
+      UPDATE footer SET Logo = ?, Mapa = ?, telImagen = ?, Telefono = ?, Direccion = ?, Campus = ?, Copyright = ?
       WHERE id_footer = ?
     `;
     const values = [Logo, Mapa, telImagen, Telefono, Direccion, Campus, Copyright, id];
@@ -79,7 +79,7 @@ if (req.files['telImagen']) {
 exports.deleteFooter = (req, res) => {
   const { id } = req.params;
 
-  db.query('SELECT * FROM Footer WHERE id_footer = ?', [id], (err, result) => {
+  db.query('SELECT * FROM footer WHERE id_footer = ?', [id], (err, result) => {
     if (err || result.length === 0) return res.status(404).json({ error: 'Footer no encontrado' });
 
     const footer = result[0];
@@ -87,7 +87,7 @@ exports.deleteFooter = (req, res) => {
     if (footer.Mapa) fs.unlinkSync(path.join(__dirname, '../public/uploads/', footer.Mapa));
     if (footer.telImagen) fs.unlinkSync(path.join(__dirname, '../public/uploads/', footer.telImagen));
 
-    db.query('DELETE FROM Footer WHERE id_footer = ?', [id], (err) => {
+    db.query('DELETE FROM footer WHERE id_footer = ?', [id], (err) => {
       if (err) return res.status(500).json({ error: 'Error al eliminar footer' });
       res.json({ message: 'Footer eliminado correctamente' });
     });

@@ -3,14 +3,14 @@
 const db = require('../db');
 
 exports.obtenerSecciones = (req, res) => {
-  db.query('SELECT * FROM Secciones', (err, results) => {
+  db.query('SELECT * FROM secciones', (err, results) => {
     if (err) return res.status(500).json({ error: err.message });
     res.json(results);
   });
 };
 
 exports.obtenerSeccionPorId = (req, res) => {
-  db.query('SELECT * FROM Secciones WHERE id_secciones = ?', [req.params.id], (err, results) => {
+  db.query('SELECT * FROM secciones WHERE id_secciones = ?', [req.params.id], (err, results) => {
     if (err) return res.status(500).json({ error: err.message });
     res.json(results[0]);
   });
@@ -18,7 +18,7 @@ exports.obtenerSeccionPorId = (req, res) => {
 
 exports.crearSeccion = (req, res) => {
   const { Nombre } = req.body;
-  db.query('INSERT INTO Secciones (Nombre) VALUES (?)', [Nombre], (err, result) => {
+  db.query('INSERT INTO secciones (Nombre) VALUES (?)', [Nombre], (err, result) => {
     if (err) return res.status(500).json({ error: err.message });
     res.status(201).json({ message: 'Sección creada', id: result.insertId });
   });
@@ -26,14 +26,14 @@ exports.crearSeccion = (req, res) => {
 
 exports.actualizarSeccion = (req, res) => {
   const { Nombre } = req.body;
-  db.query('UPDATE Secciones SET Nombre=? WHERE id_secciones=?', [Nombre, req.params.id], (err) => {
+  db.query('UPDATE secciones SET Nombre=? WHERE id_secciones=?', [Nombre, req.params.id], (err) => {
     if (err) return res.status(500).json({ error: err.message });
     res.json({ message: 'Sección actualizada' });
   });
 };
 
 exports.eliminarSeccion = (req, res) => {
-  db.query('DELETE FROM Secciones WHERE id_secciones=?', [req.params.id], (err) => {
+  db.query('DELETE FROM secciones WHERE id_secciones=?', [req.params.id], (err) => {
     if (err) return res.status(500).json({ error: err.message });
     res.json({ message: 'Sección eliminada' });
   });
@@ -44,8 +44,8 @@ exports.obtenerSeccionesConContenido = (req, res) => {
   const sql = `
     SELECT s.id_secciones, s.Nombre, s.Activo as seccion_activa,
            c.id_contenido, c.Titulo, c.Activo as contenido_activo
-    FROM Secciones s
-    LEFT JOIN Contenido c ON s.id_secciones = c.id_secciones
+    FROM secciones s
+    LEFT JOIN contenido c ON s.id_secciones = c.id_secciones
     ORDER BY s.id_secciones, c.id_contenido
   `;
 

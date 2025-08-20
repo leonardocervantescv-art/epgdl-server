@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 exports.getImagenes = (req, res) => {
-  db.query('SELECT * FROM InicioImagenes', (error, results) => {
+  db.query('SELECT * FROM inicioimagenes', (error, results) => {
     if (error) return res.status(500).json({ message: 'Error al obtener imágenes', error });
     res.json(results);
   });
@@ -17,7 +17,7 @@ exports.createImagen = (req, res) => {
 
   const Imagen = `/uploads/${file.filename}`;
   db.query(
-    'INSERT INTO InicioImagenes (Imagen, Posicion, Alt, Enlace, id_inicio) VALUES (?, ?, ?, ?, ?)',
+    'INSERT INTO inicioimagenes (Imagen, Posicion, Alt, Enlace, id_inicio) VALUES (?, ?, ?, ?, ?)',
     [Imagen, Posicion, Alt, Enlace, id_inicio],
     (error) => {
       if (error) return res.status(500).json({ message: 'Error al crear imagen', error });
@@ -29,14 +29,14 @@ exports.createImagen = (req, res) => {
 exports.deleteImagen = (req, res) => {
   const { id } = req.params;
 
-  db.query('SELECT Imagen FROM InicioImagenes WHERE id_imagen = ?', [id], (err, results) => {
+  db.query('SELECT Imagen FROM inicioimagenes WHERE id_imagen = ?', [id], (err, results) => {
     if (err) return res.status(500).json({ message: 'Error al buscar imagen', err });
     if (results.length === 0) return res.status(404).json({ message: 'Imagen no encontrada' });
 
     const imagePath = path.join(__dirname, '..', 'public', results[0].Imagen);
     if (fs.existsSync(imagePath)) fs.unlinkSync(imagePath);
 
-    db.query('DELETE FROM InicioImagenes WHERE id_imagen = ?', [id], (error) => {
+    db.query('DELETE FROM inicioimagenes WHERE id_imagen = ?', [id], (error) => {
       if (error) return res.status(500).json({ message: 'Error al eliminar imagen', error });
       res.json({ message: 'Imagen eliminada correctamente' });
     });
